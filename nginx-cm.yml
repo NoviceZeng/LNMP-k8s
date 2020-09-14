@@ -1,8 +1,8 @@
-kind: ConfigMap # 对象类型
+kind: ConfigMap 
 apiVersion: v1
 metadata:
   name: nginx-php-config 
-data: # key-value 数据集合
+data: 
   m.abc.com.conf: |
     server {
         listen      80;
