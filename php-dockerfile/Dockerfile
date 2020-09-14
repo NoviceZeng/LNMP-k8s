@@ -1,4 +1,5 @@
 FROM  php:7.2-fpm
+#使用install-php-extensions安装PHP的扩展模块redis、rabbitmq、mysql
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/bin/
 RUN install-php-extensions redis amqp mysqli pdo_mysql \
     && mkdir -p /data/dev_back
