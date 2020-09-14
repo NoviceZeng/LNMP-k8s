@@ -128,7 +128,8 @@ data:
 ```
 
 ###(4). nginx/php deployment
-部署deployment需要先部署一下配置：
+部署deployment需要先部署
+配置：
 kubectl apply -f https://raw.githubusercontent.com/stakater/Reloader/master/deployments/kubernetes/reloader.yaml
 kubectl apply -f nginx-cm.yml
 
@@ -199,7 +200,7 @@ spec:
       targetPort: 81 
       nodePort: 30011
 ```
-###(6). k8s service.yaml
+###(6). k8s ingress.yaml
 前端通过api接口调用后端，此处api接口也需要通过ingress暴露出来
 kubectl apply -f service.yaml
 ```ingress
