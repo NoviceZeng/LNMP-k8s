@@ -24,7 +24,7 @@ spec:
           ports:
             - containerPort: 80
           volumeMounts:
-           # php的配置文件，由于代码问题，这里暂且将conf和代码打包到镜像，而不是挂载
+           # nginx调用redis、rabbitmq、mysql等配置文件，由于之前架构设计，这里暂且将conf和代码打包到镜像，而不是挂载
            # - name: php-conf
            #   mountPath: /data/
             - name: nginx-php-config
