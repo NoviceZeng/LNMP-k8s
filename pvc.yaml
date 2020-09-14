@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: php-conf
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: managed-nfs-storage
+  resources:
+    requests:
+      storage: 2Gi

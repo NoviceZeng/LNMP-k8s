@@ -1,0 +1,56 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: php-fpm-nginx 
+  annotations:
+    configmap.reloader.stakater.com/reload: "nginx-php-config"
+spec:
+  selector:
+    matchLabels:
+      app: php-fpm-nginx
+  replicas: 1 
+  template: 
+    metadata: 
+      labels:
+        app: php-fpm-nginx
+    spec:
+      containers:
+        - name:  php-fpm
+          image: 10.70.128.51/library/php-fpm:3
+          ports:
+            - containerPort: 9000 
+        - name: nginx 
+          image: 10.70.128.51/library/nginx-1.17.0:3
+          ports:
+            - containerPort: 80
+          volumeMounts:
+           # php的配置文件，由于代码问题，这里暂且将conf和代码打包到镜像，而不是挂载
+           # - name: php-conf
+           #   mountPath: /data/
+            - name: nginx-php-config
+              mountPath: /etc/nginx/conf.d/
+      volumes:
+        - name: nginx-php-config
+          configMap:
+            name: nginx-php-config
+        #- name: php-conf
+        #  persistentVolumeClaim:
+        #    claimName: php-conf
+---
+kind: Service
+apiVersion: v1 
+metadata: 
+  name: php-fpm-nginx
+spec:
+  selector:
+    app: php-fpm-nginx
+  type: NodePort
+  ports:
+    - name: m
+      port: 80 
+      targetPort: 80 
+      nodePort: 30010
+    - name: api
+      port: 81 
+      targetPort: 81 
+      nodePort: 30011
