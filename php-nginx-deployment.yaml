@@ -36,21 +36,3 @@ spec:
         #- name: php-conf
         #  persistentVolumeClaim:
         #    claimName: php-conf
----
-kind: Service
-apiVersion: v1 
-metadata: 
-  name: php-fpm-nginx
-spec:
-  selector:
-    app: php-fpm-nginx
-  type: NodePort
-  ports:
-    - name: m
-      port: 80 
-      targetPort: 80 
-      nodePort: 30010
-    - name: api
-      port: 81 
-      targetPort: 81 
-      nodePort: 30011
