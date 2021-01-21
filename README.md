@@ -17,7 +17,7 @@
 
 所有文件已放在GitHub，可点击查看 [NoviceZeng/nginx-php-k8s](https://github.com/NoviceZeng/nginx-php-k8s)
 
-###(1). nginx的Dockerfile
+### 2.1. nginx的Dockerfile
 nginx.conf一般不会修改，直接放入镜像里面，此处关于nginx调用redsi、mysql、rabbitmq的PHP相关配置main-local.php、params-local.php也放入镜像   
 ```yaml
 FROM nginx:1.17.0
@@ -30,7 +30,7 @@ COPY client_h5/dist  /data/client_h5/dist/
 COPY viba_back /data/conf/viba_back/
 COPY dev_back /data/dev_back/
 ```
-###(2). php的Dockerfile
+### 2.2. php的Dockerfile
 根据实际项目安装PHP扩展，此处需要安装redis、rabbitmq和mysql的扩展，通过php-extension-installer使用PHP官方镜像，很easy实现了模块扩展
 ```yaml
 FROM  php:7.2-fpm
@@ -42,7 +42,7 @@ RUN install-php-extensions redis amqp mysqli pdo_mysql \
 COPY dev_back /data/dev_back/
 ```
 
-###(3). nginx的ConfigMap
+### 2.3. nginx的ConfigMap
 nginx中conf.d下面的配置文件通过configmap通过存储卷挂载到pod中，如下：
 ```ConfigMap
 kind: ConfigMap 
@@ -127,7 +127,7 @@ data:
       }
 ```
 
-###(4). nginx/php deployment
+### 2.4. nginx/php deployment
 部署deployment需要先部署
 配置：
 kubectl apply -f https://raw.githubusercontent.com/stakater/Reloader/master/deployments/kubernetes/reloader.yaml
@@ -179,7 +179,7 @@ spec:
         #    claimName: php-conf
 ```
 
-###(5). k8s service.yaml
+### 2.5. k8s service.yaml
 kubectl apply -f service.yaml
 ```service
 kind: Service
@@ -200,7 +200,7 @@ spec:
       targetPort: 81 
       nodePort: 30011
 ```
-###(6). k8s ingress.yaml
+### 2.6. k8s ingress.yaml
 前端通过api接口调用后端，此处api接口也需要通过ingress暴露出来
 kubectl apply -f service.yaml
 ```ingress
