@@ -1,6 +1,6 @@
 # 传统PHP项目迁移到k8s上
 
-标签（空格分隔）： PHP NGINX k8s dockerfile
+标签： `PHP NGINX k8s dockerfile`
 
 ---
 
